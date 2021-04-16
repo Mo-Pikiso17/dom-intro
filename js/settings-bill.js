@@ -1,27 +1,38 @@
 // get a reference to the sms or call radio buttons
-var radioBtns = document.querySelector('.billItemTypeWithSettings');
+var checkedRadioBtn = document.querySelector('.billItemTypeWithSettings');
+
+//get reference for total settings
+var callTotalSet = document.querySelector('.callTotalSettings')
+var smsTotalSet = document.querySelector('.smsTotalSettings')
+var totalSet = document.querySelector('.totalSettings')
+
 // get refences to all the settings fields
 var callCostField = document.querySelector('.callCostSetting')
 var smsCostField = document.querySelector('.smsCostSetting')
 var warningLevelField = document.querySelector('.warningLevelSetting')
 var criticalLevelField = document.querySelector('.criticalLevelSetting')
+
 //get a reference to the add button
-var addButton = document.querySelector('.button-primary');
-// var radioBillAddBtnElems = document.querySelector('.radioBillAddBtn')
+var addButtonSa = document.querySelector('.settingsBtn');
 
 //get a reference to the 'Update settings' button
 var updateSetBtn = document.querySelector('.updateSettings')
 
-// create a variables that will keep track of all the settings
-var callTotalSet = document.querySelector('callTotalSettings')
-var smsTotalSet = document.querySelector('smsTotalSettings')
-var totalSet = document.querySelector('.totalSettings')
-// create a variables that will keep track of all three totals.
+// create variables that will keep track of all the settings
+var callTotalSets = 0;
+var smsTotalSets = 0;
+var warningLevelSet = 0;
+var criticalLevelSet = 0;
+
+// create variables that will keep track of all three totals.
 var callsTotals = 0;
 var smsesTotals = 0;
 var totalCosts = 0;
-//add an event listener for when the 'Update settings' button is pressed
 
+//add an event listener for when the 'Update settings' button is pressed
+//add an event listener for when the add button is pressed
+
+// updateSetBtn.addEventListener('click', updateSettingsTotal);
 //add an event listener for when the add button is pressed
 
 //in the event listener get the value from the billItemTypeRadio radio buttons
@@ -31,42 +42,70 @@ var totalCosts = 0;
 // * display the latest total on the screen.
 // * check the value thresholds and display the total value in the right color.
 
-function radioBillTotals() {
-    var radioBtns = document.querySelector("input[name='billItemType']:checked");
+function updateSettingsTotal () {
+    callTotalSets = Number(callCostField.value);
+    smsTotalSets = Number(smsCostField.value);
+    warningLevelSet = Number(warningLevelField.value);
+    criticalLevelSet = Number(criticalLevelField.value);
+}
+updateSetBtn.addEventListener('click', updateSettingsTotal);
 
-    // var checkedRadioBtns = document.querySelector("input[name='billItemType']:checked");
-    if (radioBtns){
-        var billItemType = radioBtns.value;
+
+function radioBillSettings() {
+    // var radioBtns = document.querySelector("input[name='billItemTypeTwo']:checked");
+    var checkedRadioBtn = document.querySelector("input[name='billItemTypeWithSettings']:checked");
+    if (checkedRadioBtn){
+        if(totalCosts < criticalLevelSet) {
         // billItemType will be 'call' or 'sms'
-        if (billItemType === 'call') {
-            callsTotals += 2.75;
-            // totalCostTwo += 2.75;
+        if (checkedRadioBtn.value === 'call') {
+            callsTotals += callTotalSets;
+            totalCosts += callTotalSets;
         }
 
-        else if (billItemType === 'sms') {
-            smsesTotals += 0.75;
-            // totalCostTwo += 0.75;
+        else if (checkedRadioBtn.value === 'sms') {
+            smsesTotals += smsTotalSets;
+            totalCosts += smsTotalSets;
         }
 
     }
+}
+
 
 //update the totals that is displayed on the screen.
-
-totalCosts = callsTotals + smsesTotals;
 //console.log(totalCostTwo);
 
 callTotalSet.innerHTML = callsTotals.toFixed(2);
 smsTotalSet.innerHTML = smsesTotals.toFixed(2);
+//totalCosts = callsTotals + smsesTotals;
 totalSet.innerHTML = totalCosts.toFixed(2);
 
-// if (totalCosts >= 50){
+if (totalCosts >= criticalLevelSet){
+    // adding the danger class will make the text red
+    totalSet.classList.add("danger");
+}
+else if (totalCosts >= warningLevelSet){
+    totalSet.classList.add("warning");
+}
+
+// if (criticalLevelSet === 30){
 //     // adding the danger class will make the text red
-//     twoTotalElem.classList.add("danger");
+//     totalSet.classList.add("danger");
+//     totalSet.classList.remove("warning");
 // }
-// else if (totalCosts >= 30){
-//     twoTotalElem.classList.add("warning");
+// else if (warningLevelSet === 20){
+//     totalSet.classList.add("warning");
+//     totalSet.classList.remove("danger");
 // }
+
+
 
 
 }
-addButton.addEventListener('click', radioBillTotals);
+
+addButtonSa.addEventListener('click', radioBillSettings);
+
+
+
+
+
+// updateSetBtn.addEventListener('click', updateSettingsTotal);
