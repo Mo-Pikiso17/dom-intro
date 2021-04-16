@@ -82,9 +82,17 @@ totalSet.innerHTML = totalCosts.toFixed(2);
 if (totalCosts >= criticalLevelSet){
     // adding the danger class will make the text red
     totalSet.classList.add("danger");
+    totalSet.classList.remove("warning");
 }
 else if (totalCosts >= warningLevelSet){
     totalSet.classList.add("warning");
+    totalSet.classList.remove("danger");
+}
+
+if (totalCosts < criticalLevelSet) {
+    totalSet.classList.remove("danger");
+    // totalSet.classList.remove("warning");
+    
 }
 
 // if (criticalLevelSet === 30){
