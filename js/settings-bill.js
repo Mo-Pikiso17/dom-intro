@@ -47,6 +47,8 @@ function updateSettingsTotal () {
     smsTotalSets = Number(smsCostField.value);
     warningLevelSet = Number(warningLevelField.value);
     criticalLevelSet = Number(criticalLevelField.value);
+
+    updateClassList()
 }
 updateSetBtn.addEventListener('click', updateSettingsTotal);
 
@@ -70,50 +72,34 @@ function radioBillSettings() {
     }
 }
 
-
-//update the totals that is displayed on the screen.
-//console.log(totalCostTwo);
-
 callTotalSet.innerHTML = callsTotals.toFixed(2);
 smsTotalSet.innerHTML = smsesTotals.toFixed(2);
 //totalCosts = callsTotals + smsesTotals;
 totalSet.innerHTML = totalCosts.toFixed(2);
 
-if (totalCosts >= criticalLevelSet){
-    // adding the danger class will make the text red
-    totalSet.classList.add("danger");
-    totalSet.classList.remove("warning");
-}
-else if (totalCosts >= warningLevelSet){
-    totalSet.classList.add("warning");
-    totalSet.classList.remove("danger");
+updateClassList()
+
 }
 
-if (totalCosts < criticalLevelSet) {
-    totalSet.classList.remove("danger");
-    // totalSet.classList.remove("warning");
+
+
+
+function updateClassList(){
+    if (totalCosts >= criticalLevelSet){
+        // adding the danger class will make the text red
+        totalSet.classList.add("danger");
+        totalSet.classList.remove("warning");
+    }
+    else if (totalCosts >= warningLevelSet){
+        totalSet.classList.add("warning");
+        totalSet.classList.remove("danger");
+    }
     
-}
-
-// if (criticalLevelSet === 30){
-//     // adding the danger class will make the text red
-//     totalSet.classList.add("danger");
-//     totalSet.classList.remove("warning");
-// }
-// else if (warningLevelSet === 20){
-//     totalSet.classList.add("warning");
-//     totalSet.classList.remove("danger");
-// }
-
-
-
-
+    if (totalCosts < criticalLevelSet) {
+        totalSet.classList.remove("danger");
+        // totalSet.classList.remove("warning");
+        
+    }
 }
 
 addButtonSa.addEventListener('click', radioBillSettings);
-
-
-
-
-
-// updateSetBtn.addEventListener('click', updateSettingsTotal);
