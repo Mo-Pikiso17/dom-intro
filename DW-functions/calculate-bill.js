@@ -18,7 +18,7 @@ function calBill(billItem) {
         }
 
     }
-    return billTotal;
+    return billTotal.toFixed(2);
     }
     
 

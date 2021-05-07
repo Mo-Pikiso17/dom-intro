@@ -36,7 +36,8 @@ function updateSettingsTotal () {
     billWithSettingsInsta.setCriticalLevel(Number(criticalLevelField.value));
     billWithSettingsInsta.reachedCriticalLevel();
 }
-updateSetBtn.addEventListener('click', updateSettingsTotal);
+// updateSetBtn.addEventListener('click', updateSettingsTotal);
+addButtonSa.addEventListener('click', updateSettingsTotal);
 
 
 
